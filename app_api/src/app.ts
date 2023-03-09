@@ -1,3 +1,5 @@
+import {AppDataSource} from "./data-source";
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,7 +7,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes'); // 変更箇所
-var usersRouter = require('./routes/users');
+import tokenVerificationRouter from './routes/tokenVerification'
+import signupRouter from './routes/signup'
+import loginRouter from './routes/login'
+import homeRouter from './routes/home'
 
 var app = express();
 
@@ -20,7 +25,18 @@ app.use(cookieParser());
 app.use(express.static(path.join('public')));  // 変更箇所
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use("/tokenVerification", tokenVerificationRouter);
+app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
+app.use('/home', homeRouter);
+
+AppDataSource.initialize()
+    .then(() => {
+      console.log("Data Source has been initialized!");
+    })
+    .catch((err) => {
+      console.error("Error during Data Source initialization:", err);
+    });
 
 // catch 404 and forward to error handler
 app.use(function(req: any, res: any, next: any) {  // 変更箇所
@@ -37,5 +53,7 @@ app.use(function(err: any, req: any, res: any, next: any) {  // 変更箇所
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;

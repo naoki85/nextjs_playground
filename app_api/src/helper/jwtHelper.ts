@@ -18,4 +18,10 @@ export class jwtHelper {
             console.error(err);
         }
     }
+
+    static newExpiresAt(): Date {
+        const newExpiresAt = new Date();
+        newExpiresAt.setDate(newExpiresAt.getDate() + 2);
+        return newExpiresAt;
+    }
 }
