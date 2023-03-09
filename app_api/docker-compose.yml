@@ -17,3 +17,17 @@ services:
     working_dir: /app
     # 起動後に実行するコマンド
     command: sh -c 'npx tsc; npm run dev'
+  db:
+    image: mysql:8.0.32
+    ports:
+      - 3306:3306
+    volumes:
+      - db-store:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: react_express_sample_development
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_user
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
+volumes:
+  db-store:
