@@ -1,7 +1,20 @@
 version: '3'
 services:
+  app-frontend:
+    image: node:18.15.0-buster-slim
+    container_name: app-frontend
+    environment:
+      NODE_ENV: development
+    tty: true
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./app_frontend:/app
+    working_dir: /app
+    command: npm run start
   app-api:
     image: node:18.15.0-buster-slim
+    container_name: app-api
     environment:
       NODE_ENV: development
       JWE_SECRET: hogehoge
@@ -13,13 +26,14 @@ services:
       DATABASE_PORT: 3306
     tty: true
     ports:
-      - '3000:3000'
+      - '3001:3000'
     volumes:
-      - ./src:/app
+      - ./app_api/src:/app
     working_dir: /app
     command: sh -c 'npx tsc; npm run dev'
   app-db:
     image: mysql:8.0.32
+    container_name: app-db
     ports:
       - 3306:3306
     volumes:
