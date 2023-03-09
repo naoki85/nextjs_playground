@@ -4,7 +4,12 @@
  * Module dependencies.
  */
 
-var app = require('../dist/app');
+if (process.env.NODE_ENV === 'development') {
+  var app = require('../app');
+} else {
+  var app = require('../dist/app');
+}
+
 var debug = require('debug')('app:server');
 var http = require('http');
 
