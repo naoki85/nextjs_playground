@@ -4,6 +4,7 @@ services:
     image: node:18.15.0-buster-slim
     environment:
       NODE_ENV: development
+      JWE_SECRET: hogehoge
       DEBUG: app:*
       DATABASE_HOST: app-db
       DATABASE_NAME: react_express_sample_development
