@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route, Routes} from "react-router-dom";
+import {GuestRoute, PrivateRoute} from "./AuthRouter";
+import {Top} from "./components/pages/top";
+import {Signup} from "./components/pages/signup";
+import {Login} from "./components/pages/login";
+import {Home} from "./components/pages/home";
+import {NotFoundPage} from "./components/pages/errors/notfound";
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Routes>
+        <Route path={"/"} element={<GuestRoute children={<Top />}></GuestRoute>}/>
+        <Route path={"/signup"} element={<GuestRoute children={<Signup />}></GuestRoute>}/>
+        <Route path={"/login"} element={<GuestRoute children={<Login />}></GuestRoute>}/>
+        <Route path={"/home"} element={<PrivateRoute children={<Home />}></PrivateRoute>}/>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
+  )
 }
 
 export default App;

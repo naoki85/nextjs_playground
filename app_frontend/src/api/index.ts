@@ -10,7 +10,7 @@ export type User = {
 };
 
 export const signUp = async (data: User) => {
-    await axios.post("http://localhost:8000/sign-up", data);
+    await axios.post("http://localhost:8000/signup", data);
     return;
 };
 
