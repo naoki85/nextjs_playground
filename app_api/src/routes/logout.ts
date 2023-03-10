@@ -9,7 +9,7 @@ router.delete("/", async (req, res, next) => {
         return res.cookie("jwtToken", "", {
             httpOnly: true,
             expires: newExpiresAt
-        });
+        }).json({});
     } catch (error) {
         console.error(error);
     }

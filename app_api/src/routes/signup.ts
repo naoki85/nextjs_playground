@@ -10,7 +10,7 @@ const userRepository = AppDataSource.getRepository(User);
 router.post("/", async (req, res, next) => {
     try {
         const user = await userRepository.findOne({
-            where: {mail: req.body.email},
+            where: {mail: req.body.mail},
         });
 
         if (user) {
@@ -25,17 +25,20 @@ router.post("/", async (req, res, next) => {
         await userRepository.insert({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            mail: req.body.email,
+            mail: req.body.mail,
             password: hashPassword,
         });
 
+        console.log("111111");
         const jwtToken = jwtHelper.createToken();
+        console.log("222222");
         const newExpiresAt = jwtHelper.newExpiresAt();
+        console.log("333333");
 
         return res.status(200).cookie("jwtToken", jwtToken, {
             httpOnly: true,
             expires: newExpiresAt,
-        });
+        }).json({});
     } catch (error) {
         console.error(error);
     }

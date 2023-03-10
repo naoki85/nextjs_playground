@@ -3,7 +3,7 @@ import {jwtHelper} from "../helper/jwtHelper";
 
 const router = express.Router();
 
-router.get("/tokenVerification", function (req, res, next) {
+router.get("/", function (req, res, next) {
     let token = "";
     if (req.cookies.jwtToken) {
         token = req.cookies.jwtToken;

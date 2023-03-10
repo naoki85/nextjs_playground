@@ -26,6 +26,6 @@ export const logout = async () => {
 };
 
 export const validateJwtToken = async () => {
-    const response = axios.get("/tokenVerification");
+    const response = await axios.get("/tokenVerification");
     return response;
 };

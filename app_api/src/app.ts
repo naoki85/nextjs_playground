@@ -10,14 +10,22 @@ var indexRouter = require('./routes'); // 変更箇所
 import tokenVerificationRouter from './routes/tokenVerification'
 import signupRouter from './routes/signup'
 import loginRouter from './routes/login'
+import logoutRouter from './routes/logout'
 import homeRouter from './routes/home'
+import cors from "cors";
 
 var app = express();
+
+const corsOptions: cors.CorsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
 
 // view engine setup
 app.set('views', path.join('views'));  // 変更箇所
 app.set('view engine', 'jade');
 
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,6 +36,7 @@ app.use('/', indexRouter);
 app.use("/tokenVerification", tokenVerificationRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/home', homeRouter);
 
 AppDataSource.initialize()

@@ -11,12 +11,12 @@ router.post("/", async (req, res, next) => {
     try {
         const user = req.body;
 
-        if (!user.email || !user.password) {
+        if (!user.mail || !user.password) {
             throw new Error("USERS_INVALID_VALUE");
         }
 
         const result = await userRepository.findOne({
-            where: { mail: user.email },
+            where: { mail: user.mail },
         });
 
         if (!result) {
