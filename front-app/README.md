@@ -62,4 +62,12 @@ $ npx nx g @nrwl/react:component --export=false --project=frontend --dir=app/com
 $ npx nx g @nrwl/react:hook --directory=app/hooks --name=useAuth --flat=true --pascalCaseFiles=true --dry-run
 $ npx nx g @nrwl/react:hook --directory=app/hooks --name=useAuth --flat=true --pascalCaseFiles=true
 ```
+
+## Migrations
+
+Fix `schema.prisma` and run this command.
+
+```
+npx nx prisma-migrate api --name xxxx
+```
  
