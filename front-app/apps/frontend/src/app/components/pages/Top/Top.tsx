@@ -1,14 +1,12 @@
-import styles from './Top.module.scss';
+import {Link} from "react-router-dom"
 
-/* eslint-disable-next-line */
-export interface TopProps {}
-
-export function Top(props: TopProps) {
+const Top = () => {
   return (
-    <div className={styles['container']}>
-      <h1>Welcome to Top!</h1>
+    <div>
+      <Link to={"/signup"}> 登録 </Link>
+      <Link to={"/login"}> ログイン </Link>
     </div>
   );
-}
+};
 
 export default Top;
