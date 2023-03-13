@@ -3,6 +3,7 @@
 - React
 - Express
 - MySQL
+- Prism (ORM)
 
 ## Dev Tools
 
