@@ -1,11 +1,11 @@
 import * as express from "express";
-import {jwtHelper} from "../helper/jwtHelper";
+import {jwtHelper} from "../helpers/jwtHelper";
 
 const router = express.Router();
 
 router.get("/", function (req, res, next) {
     let token = "";
-    if (req.cookies.jwtToken) {
+    if (req.cookies && req.cookies.jwtToken) {
         token = req.cookies.jwtToken;
     } else {
         return res.status(200).json({ isAuthenticated: false });

@@ -1,5 +1,5 @@
 import * as express from "express";
-import {jwtHelper} from "../helper/jwtHelper";
+import {jwtHelper} from "../helpers/jwtHelper";
 
 const router = express.Router();
 
