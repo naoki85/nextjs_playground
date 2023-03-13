@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app-db:
+    image: mysql:8.0.32
+    container_name: app-db
+    ports:
+      - 3306:3306
+    volumes:
+      - db-store:/var/lib/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_DATABASE: react_express_sample_development
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_user
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
+volumes:
+  db-store:

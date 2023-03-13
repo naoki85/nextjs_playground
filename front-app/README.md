@@ -3,12 +3,14 @@
 ## Setup
 
 ```
-npm install -g nx
+$ npm install -g nx
+$ npm install
 ```
 
 ## Start
 
 ```
+$ docker-compose up -d
 $ npx nx serve frontend
 $ npx nx serve api
 # Run both applications
