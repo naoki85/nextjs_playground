@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 router.post("/", async (req, res, next) => {
   try {
     const user = await prisma.user.findFirst({
-      where: {email: req.body.mail},
+      where: {email: req.body.email},
     });
 
     if (user) {
@@ -25,11 +25,10 @@ router.post("/", async (req, res, next) => {
       data: {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        email: req.body.mail,
+        email: req.body.email,
         password: hashPassword,
       }
     });
-    await prisma.user.create({data: user})
 
     const jwtToken = jwtHelper.createToken();
     const newExpiresAt = jwtHelper.newExpiresAt();

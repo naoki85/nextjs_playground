@@ -38,9 +38,9 @@ const Signup = () => {
         <input
           id="email_register"
           type="email"
-          {...register("mail", {required: true})}
+          {...register("email", {required: true})}
         />
-        <p> {errors.mail && "文字が入力されていません"}</p>
+        <p> {errors.email && "文字が入力されていません"}</p>
         <label htmlFor="password_register">パスワード</label>
         <input
           id="password_register"

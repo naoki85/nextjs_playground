@@ -10,7 +10,7 @@ const userRepository = AppDataSource.getRepository(User);
 router.post("/", async (req, res, next) => {
     try {
         const user = await userRepository.findOne({
-            where: {mail: req.body.mail},
+            where: {mail: req.body.email},
         });
 
         if (user) {
