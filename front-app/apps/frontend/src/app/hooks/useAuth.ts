@@ -1,15 +1,25 @@
-import { useState, useCallback } from 'react';
+import {useEffect, useState} from "react";
+import {validateJwtToken} from "../api";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UseAuth {
-  count: number;
-  increment: () => void;
+export const useAuth = () => {
+  const [check, setCheck] = useState<{
+    checked: boolean;
+    isAuthenticated: boolean;
+  }>({ checked: false, isAuthenticated: false });
+
+  useEffect(() => {
+    const handleCheckJwt = async () => {
+      try {
+        const response = await validateJwtToken();
+        setCheck({
+          checked: true, isAuthenticated: response.data.isAuthenticated
+        });
+      } catch (error) {
+        setCheck({ checked: true, isAuthenticated: false });
+      }
+    };
+    handleCheckJwt();
+  }, []);
+
+  return check;
 }
-
-export function useAuth(): UseAuth {
-  const [count, setCount] = useState(0);
-  const increment = useCallback(() => setCount((x) => x + 1), []);
-  return { count, increment };
-}
-
-export default useAuth;
