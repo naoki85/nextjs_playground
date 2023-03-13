@@ -1,13 +1,9 @@
 # react_express_sample
 
-```
-make setup
-```
+- React
+- Express
+- MySQL
 
-```
-make start
-```
+## Dev Tools
 
-```
-make down
-```
+- nx
