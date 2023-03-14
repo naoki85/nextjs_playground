@@ -1,18 +1,20 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import './styles.css';
+import { AppProps } from 'next/app'
+import { SWRConfig } from 'swr'
+import fetchJson from 'lib/fetchJson'
 
-function CustomApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <title>Welcome to frontend!</title>
-      </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
-    </>
-  );
+    <SWRConfig
+      value={{
+        fetcher: fetchJson,
+        onError: (err) => {
+          console.error(err)
+        },
+      }}
+    >
+      <Component {...pageProps} />
+    </SWRConfig>
+  )
 }
 
-export default CustomApp;
+export default MyApp
