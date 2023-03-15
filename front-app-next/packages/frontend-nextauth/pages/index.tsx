@@ -1,4 +1,5 @@
 import styles from './index.module.scss';
+import {signIn} from 'next-auth/react';
 
 export function Index() {
   /*
@@ -15,6 +16,9 @@ export function Index() {
               <span> Hello there, </span>
               Welcome frontend-nextauth 👋
             </h1>
+            <button onClick={() => {
+              signIn();
+            }}>Login</button>
           </div>
 
           <div id="hero" className="rounded">

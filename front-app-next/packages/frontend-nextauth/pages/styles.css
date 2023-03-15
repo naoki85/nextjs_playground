@@ -33,7 +33,7 @@ h2 {
 }
 a {
   color: inherit;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 pre {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
