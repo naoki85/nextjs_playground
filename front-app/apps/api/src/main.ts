@@ -4,22 +4,35 @@
  */
 
 import express from 'express';
-import { PrismaClient } from '@prisma/client'
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import cors from "cors";
+
 import indexRouter from './routes/index'
 import tokenVerificationRouter from './routes/tokenVerification'
 import signupRouter from './routes/signup'
 import loginRouter from './routes/login'
+import logoutRouter from './routes/logout'
 import homeRouter from './routes/home'
 
 const app = express();
-const prisma = new PrismaClient();
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+const corsOptions: cors.CorsOptions = {
+  origin: "http://localhost:4200",
+  credentials: true,
+}
+app.use(cors(corsOptions));
 
 // app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.use('/', indexRouter);
-app.use("/tokenVerification", tokenVerificationRouter);
-app.use('/signup', signupRouter);
-app.use('/login', loginRouter);
-app.use('/home', homeRouter);
+app.use('/api/', indexRouter);
+app.use("/api/tokenVerification", tokenVerificationRouter);
+app.use('/api/signup', signupRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/logout', logoutRouter);
+app.use('/api/home', homeRouter);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

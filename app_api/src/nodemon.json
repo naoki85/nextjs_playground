@@ -1,5 +1,0 @@
-{
-  "watch": ["routes", "entity", "app.ts"],
-  "ext": "ts,js,json",
-  "exec": "ts-node"
-}
