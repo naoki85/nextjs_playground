@@ -26,8 +26,5 @@
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.4",
     "typescript": "5.0.2"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json,css}": "npx prettier --write --ignore-unknown"
   }
 }
