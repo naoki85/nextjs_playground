@@ -1,0 +1,32 @@
+name: ci
+on: [pull_request]
+
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: write
+    if: github.event_name  == 'pull_request'
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: setup Node.js
+        uses: actions/seup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+      - name: install npm packagegs
+        run: npm ci
+      - name: execute ESLint
+        uses: reviewdog/action-setup@v1
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          reviewdog_version: latest
+        run: npm run lint | reviewdog -f=eslint -reporter=github-pr-review -filter-mode=diff_context -fail-on-error=true
