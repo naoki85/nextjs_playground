@@ -46,5 +46,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           test-script: npm run test
           working-directory: frontend
-          coverage-file: report.json
-          base-coverage-file: report.json
