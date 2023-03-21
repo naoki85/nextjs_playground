@@ -23,4 +23,14 @@ jobs:
         with:
           reviewdog_version: latest
       - name: execute Lint
-        run: npm run lint
+        run: npm run lint | reviewdog -f=eslint -reporter=github-pr-review
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify on lint failure
+        if: ${{ job.status == 'failure' }}
+        uses: reviewdog/action-github-pr-review@v1.x
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: error
+          reporter: github-pr-review
