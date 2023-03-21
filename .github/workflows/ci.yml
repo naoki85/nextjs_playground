@@ -1,14 +1,13 @@
 name: ci
 on: [pull_request]
 
-defaults:
-  run:
-    working-directory: frontend
-
 jobs:
   ci:
     runs-on: ubuntu-latest
     if: github.event_name  == 'pull_request'
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - name: checkout code
         uses: actions/checkout@v3
