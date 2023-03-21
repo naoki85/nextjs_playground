@@ -13,8 +13,8 @@ jobs:
     name: ci
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      issues: read
+      contents: write
+      checks: write
       pull-requests: write
     if: github.event_name  == 'pull_request'
     defaults:
@@ -46,3 +46,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           test-script: npm run test
           working-directory: frontend
+          coverage-file: report.json
+          base-coverage-file: report.json
