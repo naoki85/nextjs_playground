@@ -45,3 +45,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           test-script: npm run test
+          working-directory: frontend
