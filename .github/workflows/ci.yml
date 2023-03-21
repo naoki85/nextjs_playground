@@ -28,17 +28,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - name: install npm packagegs
         run: npm ci
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            Hello world ! :wave:
+      - name: execute lint
+        run: npm run lint
       - name: execute unit test
         run: npm run test
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest
-      - name: Run reviewdog
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run lint | reviewdog -f=eslint -reporter=github-pr-review -filter-mode=diff_context -fail-on-error=true
