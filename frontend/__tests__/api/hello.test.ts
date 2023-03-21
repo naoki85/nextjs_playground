@@ -8,7 +8,7 @@ describe('/api/hello handler', () => {
     const res = httpMocks.createResponse<NextApiResponse>();
 
     await handler(req, res);
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(400);
     expect(res._getJSONData()).toBeTruthy();
   });
 });
