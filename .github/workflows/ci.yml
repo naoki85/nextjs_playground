@@ -5,6 +5,9 @@ on:
       - master
       - main
 
+env:
+  ACTIONS_RUNNER_DEBUG: true
+
 jobs:
   ci:
     name: ci
