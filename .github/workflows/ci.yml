@@ -8,10 +8,6 @@ defaults:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      issues: read
-      pull-requests: write
     if: github.event_name  == 'pull_request'
     steps:
       - name: checkout code
