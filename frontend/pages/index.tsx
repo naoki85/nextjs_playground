@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {
+  const hoge = "fuga";
   return (
     <div className={styles.container}>
       <Head>
@@ -63,4 +64,4 @@ const Home: NextPage = () => {
   );
 };
 
- default Home;
+export default Home;
