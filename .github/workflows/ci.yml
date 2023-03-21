@@ -24,6 +24,10 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - name: install npm packagegs
         run: npm ci
+      - name: execute unit test
+        uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          test-script: npm run test
       - uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
