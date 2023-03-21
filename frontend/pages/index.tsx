@@ -63,4 +63,4 @@ const Home: NextPage = () => {
   );
 };
 
-default Home;
+ default Home;
