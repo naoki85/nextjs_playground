@@ -1,6 +1,6 @@
 name: ci
 on:
-  pull_request_target:
+  pull_request:
     branches:
       - master
       - main
@@ -31,6 +31,7 @@ jobs:
       - name: execute unit test
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           working-directory: frontend
           test-script: npm run test
       - uses: reviewdog/action-setup@v1
