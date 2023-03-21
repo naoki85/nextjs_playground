@@ -1,5 +1,6 @@
-# react_express_sample
+# Nextjs Playground
 
+- Next.js
 - React
 - Express
 - MySQL
