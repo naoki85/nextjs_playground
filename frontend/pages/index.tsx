@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import {
   Chart as ChartJS,
@@ -15,6 +14,8 @@ import {
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import ChatModal from '../components/ChatModal/ChatModal';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, GlobalStyles } from 'amazon-chime-sdk-component-library-react';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -70,7 +71,10 @@ const Home: NextPage = () => {
         </p>
 
         <Line options={options} data={data} />
-        <ChatModal />
+        <ThemeProvider theme={lightTheme}>
+          <GlobalStyles />
+          <ChatModal />
+        </ThemeProvider>
       </main>
     </div>
   );

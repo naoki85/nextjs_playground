@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './ChatModal.module.scss';
+import { ChatBubble } from 'amazon-chime-sdk-component-library-react';
 
 interface ChatResponse {
   message: string;
@@ -61,13 +62,14 @@ const ChatModal = () => {
             <button onClick={handleClose}>Close</button>
           </div>
           <ol className={styles.chat}>
-            {messages.map((message, index) => (
-              <li key={index} className={message.sender == 'self' ? styles.self : styles.other}>
-                <div className={styles.msg}>
-                  <p>{message.message}</p>
-                </div>
-              </li>
-            ))}
+            {messages.map((message, index) => {
+              const variant = message.sender == 'self' ? 'outgoing' : 'incoming';
+              return (
+                <ChatBubble key={index} variant={variant} css={'margin: 10px;'} showTail={true}>
+                  {message.message}
+                </ChatBubble>
+              );
+            })}
           </ol>
           <div className={styles.msgerInputarea}>
             <input
