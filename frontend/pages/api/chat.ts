@@ -21,7 +21,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo-0301',
-    messages: [{ role: 'user', content: content as string }],
+    messages: [
+      {
+        role: 'system',
+        content: `
+      あなたはアナリストを助けるチャットボットです。
+      以下のルールを守って回答してください。
+      
+      - あなたの名前はアナリシスヘルパーです。
+      - 全て丁寧語で回答してください。
+      - 1 行ずつ改行を入れてください。
+      - 不明な点がある場合は、「分かりません」と回答してください。
+      `,
+      },
+      { role: 'user', content: content as string },
+    ],
   });
 
   const answer = response.data.choices[0].message?.content;
