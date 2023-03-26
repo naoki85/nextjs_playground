@@ -7,17 +7,22 @@ interface ChatResponse {
   errorMessage?: string;
 }
 
+interface ChatMessage {
+  message: string;
+  sender: 'self' | 'other';
+}
+
 const ChatModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
 
   const handleSend = async () => {
-    setMessages((prev) => [...prev, message]);
+    setMessages((prev) => [...prev, { message, sender: 'self' }]);
     console.log(messages);
     try {
       const response = await fetch(`/api/chat?content=${message}`);
@@ -26,7 +31,7 @@ const ChatModal = () => {
       if (data.error) {
         console.error(data.errorMessage || 'An error occurred');
       } else {
-        setMessages((prev) => [...prev, data.message]);
+        setMessages((prev) => [...prev, { message: data.message, sender: 'other' }]);
         setMessage('');
       }
     } catch (error) {
@@ -55,21 +60,26 @@ const ChatModal = () => {
             <h2>Chat</h2>
             <button onClick={handleClose}>Close</button>
           </div>
-          <div className={styles.chatBody}>
+          <ol className={styles.chat}>
             {messages.map((message, index) => (
-              <div key={index} className='chat-message'>
-                {message}
-              </div>
+              <li key={index} className={message.sender == 'self' ? styles.self : styles.other}>
+                <div className={styles.msg}>
+                  <p>{message.message}</p>
+                </div>
+              </li>
             ))}
-          </div>
-          <div className='chat-input'>
+          </ol>
+          <div className={styles.msgerInputarea}>
             <input
               type='text'
               value={message}
               onChange={handleInputChange}
               placeholder='Type your message here'
+              className={styles.msgerInput}
             />
-            <button onClick={handleSend}>Send</button>
+            <button onClick={handleSend} className={styles.msgerSendBtn}>
+              Send
+            </button>
           </div>
         </div>
       )}
