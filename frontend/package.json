@@ -11,7 +11,8 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,json,css}'",
     "prepare": "cd .. && husky install frontend/.husky",
     "test-watch": "jest --watch",
-    "test": "jest"
+    "test": "jest",
+    "prism": "ts-node lib/prisma.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
