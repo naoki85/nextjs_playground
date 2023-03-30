@@ -3,8 +3,9 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'frontend/**'
+  push:
+    branches:
+      - main
 
 env:
   ACTIONS_RUNNER_DEBUG: true
@@ -41,6 +42,9 @@ jobs:
         run: npm run lint | reviewdog -f=eslint -reporter=github-pr-review -filter-mode=diff_context -fail-on-error=true
       - name: execute lint
         run: npm run lint
+      - name: test
+        run: |
+          echo ${{ github.ref }}
       - name: execute unit test
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
