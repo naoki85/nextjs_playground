@@ -44,6 +44,7 @@ jobs:
       - name: test
         run: |
           echo ${{ github.ref }}
+          echo ${{ github.ref_name }}
       - name: execute unit test
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
