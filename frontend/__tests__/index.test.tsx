@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Home from '../pages/index';
 import '@testing-library/jest-dom';
 
 describe('Home', () => {
-  it('renders a heading', () => {
+  it('renders a heading', async () => {
     render(<Home />);
 
     const heading = screen.getByRole('heading', {
@@ -11,5 +11,14 @@ describe('Home', () => {
     });
 
     expect(heading).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Load Data'));
+    // expect(screen.getByText('Loading...')).toBeInTheDocument();
+    await waitFor(
+      () => {
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
   });
 });
