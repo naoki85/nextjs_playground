@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Provider from "./Provider";
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,19 +14,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-    <head />
+    <head/>
     <body>
-    <header>
-      <h1>
-        <Link href={'/'}>ブログ</Link>
-      </h1>
-      <Link href={'/articles/new'}>記事を書く</Link>
-    </header>
-    {children}
-    <footer>
-      <small>sample</small>
-    </footer>
+    <Provider>
+      <header>
+        <h1>
+          <Link href={'/'}>ブログ</Link>
+        </h1>
+        <Link href={'/articles/new'}>記事を書く</Link>
+      </header>
+      {children}
+      <footer>
+        <small>sample</small>
+      </footer>
+    </Provider>
     </body>
     </html>
-  )
+  );
 }
