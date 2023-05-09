@@ -3,6 +3,10 @@ import { Article, Comment } from "@/types";
 
 import type { Metadata, ResolvingMetadata } from 'next';
 import { Suspense } from "react";
+import ArticleContent from "@/app/articles/[slug]/ArticleContent";
+import { Heading } from "@/components/chakraUi";
+import LoadingComments from "@/app/articles/[slug]/LoadingComments";
+import Comments from "@/app/articles/[slug]/Comments";
 
 export async function generateMetadata({
                                          params,
@@ -63,28 +67,12 @@ export default async function ArticleDetail({
 
   return (
     <div>
-      <h1>{article.title}</h1>
-      <p>{article.content}</p>
-      <h2>Comments</h2>
-      <Suspense fallback={<div>Loading comments...</div>}>
+      <ArticleContent article={article} />
+      <Heading as={'h2'} mt={8} mb={4}>Comments</Heading>
+      <Suspense fallback={<LoadingComments />}>
         {/* @ts-expect-error 現状は jsx が Promise を返すと TypeScript が型エラーを報告するが、将来的には解決される */}
         <Comments commentPromise={commentsPromise} />
       </Suspense>
     </div>
-  );
-}
-
-async function Comments({
-                          commentPromise,
-                        }: {
-  commentPromise: Promise<Comment[]>;
-}) {
-  const comments = await commentPromise;
-  return (
-    <ul>
-      {comments.map((comment) => (
-        <li key={comment.id}>{comment.body}</li>
-      ))}
-    </ul>
   );
 }
