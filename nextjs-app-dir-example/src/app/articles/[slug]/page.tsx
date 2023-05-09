@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Article, Comment } from "@/types";
 
 import type { Metadata, ResolvingMetadata } from 'next';
+import { Suspense } from "react";
 
 export async function generateMetadata({
                                          params,
@@ -58,21 +59,32 @@ export default async function ArticleDetail({
   const articlePromise = getArticle(params.slug);
   const commentsPromise = getComments(params.slug);
 
-  const [article, comments] = await Promise.all([
-    articlePromise,
-    commentsPromise,
-  ]);
+  const article = await articlePromise;
 
   return (
     <div>
       <h1>{article.title}</h1>
       <p>{article.content}</p>
       <h2>Comments</h2>
-      <ul>
-        {comments.map((comment) => (
-          <li key={comment.id}>{comment.body}</li>
-        ))}
-      </ul>
+      <Suspense fallback={<div>Loading comments...</div>}>
+        {/* @ts-expect-error 現状は jsx が Promise を返すと TypeScript が型エラーを報告するが、将来的には解決される */}
+        <Comments commentPromise={commentsPromise} />
+      </Suspense>
     </div>
+  );
+}
+
+async function Comments({
+                          commentPromise,
+                        }: {
+  commentPromise: Promise<Comment[]>;
+}) {
+  const comments = await commentPromise;
+  return (
+    <ul>
+      {comments.map((comment) => (
+        <li key={comment.id}>{comment.body}</li>
+      ))}
+    </ul>
   );
 }
